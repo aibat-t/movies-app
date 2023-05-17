@@ -1,23 +1,58 @@
 <template>
   <div id="app">
-    <MoviesList :list="moviesList" />
+    <PosterBg :poster="posterBg" />
+    <MoviesList :list="moviesList" @changePoster="onChangePoster" />
+    <MoviesPagination
+      :current-page="currentPage"
+      :per-page="moviesPerPage"
+      :total="moviesLength"
+      @pageChanged="onPageChanged"
+    />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import MoviesList from "./components/MoviesList.vue";
+import PosterBg from "./components/PosterBg.vue";
+import MoviesPagination from "./components/MoviesPagination.vue";
 
 export default {
   name: "App",
   components: {
     MoviesList,
+    PosterBg,
+    MoviesPagination,
   },
+  data: () => ({
+    posterBg: "",
+  }),
   computed: {
-    ...mapGetters("movies", ["moviesList"]),
+    ...mapGetters("movies", [
+      "moviesList",
+      "currentPage",
+      "moviesPerPage",
+      "moviesLength",
+    ]),
+  },
+  watch: {
+    "$route.query": {
+      handler: "onPageQueryChange",
+      immediate: true,
+      deep: true,
+    },
   },
   methods: {
-    ...mapActions("movies", ["fetchMovies"]),
+    ...mapActions("movies", ["changeCurrentPage"]),
+    onPageQueryChange({ page = 1 }) {
+      this.changeCurrentPage(page);
+    },
+    onChangePoster(poster) {
+      this.posterBg = poster;
+    },
+    onPageChanged(page) {
+      this.$router.push({ query: { page } });
+    },
   },
 };
 </script>
@@ -27,5 +62,6 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 </style>
