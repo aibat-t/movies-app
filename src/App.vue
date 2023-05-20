@@ -2,6 +2,7 @@
   <div id="app">
     <PreLoader />
     <PosterBg :poster="posterBg" />
+    <HeaderUp />
     <MoviesList :list="moviesList" @changePoster="onChangePoster" />
     <MoviesPagination
       :current-page="currentPage"
@@ -18,6 +19,7 @@ import MoviesList from "./components/MoviesList.vue";
 import PosterBg from "./components/PosterBg.vue";
 import MoviesPagination from "./components/MoviesPagination.vue";
 import PreLoader from "./components/PreLoader.vue";
+import HeaderUp from "./components/HeaderUp.vue";
 
 export default {
   name: "App",
@@ -26,6 +28,7 @@ export default {
     PosterBg,
     MoviesPagination,
     PreLoader,
+    HeaderUp,
   },
   data: () => ({
     posterBg: "",
