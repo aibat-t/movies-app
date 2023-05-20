@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <PreLoader />
+    <NotificationAll />
     <PosterBg :poster="posterBg" />
     <HeaderUp />
     <MoviesList :list="moviesList" @changePoster="onChangePoster" />
@@ -20,6 +21,7 @@ import PosterBg from "./components/PosterBg.vue";
 import MoviesPagination from "./components/MoviesPagination.vue";
 import PreLoader from "./components/PreLoader.vue";
 import HeaderUp from "./components/HeaderUp.vue";
+import NotificationAll from "./components/NotificationAll.vue";
 
 export default {
   name: "App",
@@ -29,6 +31,7 @@ export default {
     MoviesPagination,
     PreLoader,
     HeaderUp,
+    NotificationAll,
   },
   data: () => ({
     posterBg: "",

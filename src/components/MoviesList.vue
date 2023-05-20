@@ -39,12 +39,12 @@ export default {
       return Boolean(Object.keys(this.list).length);
     },
     listTitle() {
-      console.log(this.isSearch);
       return this.isSearch ? "Search result" : "IMDB Top 250";
     },
   },
   methods: {
     ...mapActions("movies", ["removeMovie"]),
+    ...mapActions(["showNotify"]),
     onMouseOver(poster) {
       this.$emit("changePoster", poster);
     },
@@ -54,6 +54,11 @@ export default {
       );
       if (isConfirmed) {
         this.removeMovie(id);
+        this.showNotify({
+          msg: "Movie deleted succesfull",
+          variant: "success",
+          title: "Success",
+        });
       }
     },
   },
